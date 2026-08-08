@@ -28,7 +28,7 @@ function getGuess(limit, length) {
             alert(`Enter a word with ${length} letters`);
         }
         else if (!words.includes(guess)) {
-            alert(`"${guess}" is not a valid word`);
+            alert(`"${guess}" is not a valid word`);// checks if guess is present as a word in dictionary attached
         }
         else {
             break;
