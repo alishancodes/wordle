@@ -1,13 +1,15 @@
 //selects a word randomly which are greater than 2 letters
-async function getRandomWord() {
 
-    const response = await fetch('words.txt');
+let words = ["chair", "table","phone","glass","plate","spoon","knife","clock","shoes","shirt","house","brush",
+    "towel","plant","light","shelf","couch","books","floor","paper","pillow","bottle","laptop","mirror","drawer",
+    "window","carpet","basket","bucket","remote","pencil","wallet","jacket","tissue","napkin","camera","tablet","switch",
+    "screen","curtain","blanket","kitchen","bedroom","monitor","keyboard","charger","cabinet","notebook","backpack","stapler",
+    "scissor","clothes","printer","speaker","toaster","mattress","dustbin",   "computer","cupboard","bookshelf","wardrobe","doorbell",
+    "umbrella","keychain","lunchbox","shoelace","calendar","flooring","tabletop","bedsheet","notebook","handbag","backrest","footrest",
+    "doorstop","armchair","dishware","headset"]; 
 
-    const data = await response.text();
-
-    const words = data.split('\n');
-
-    const possibleWords = words.filter(word => word.length > 2);
+function getRandomWord(lengthChoice) {
+    const possibleWords = words.filter(word => word.length == lengthChoice);
 
     const randomIndex = Math.floor(Math.random() * possibleWords.length);
 
@@ -18,58 +20,81 @@ async function getRandomWord() {
 
 // function to take guess
 
-function getGuess(limit, length) {
+function getGuess(lengthChoice,attempts_left,words) {
+
     let guess;
 
     do {
-        guess = prompt(`Enter your guess!! [it's a word with ${length} letters\nso you get ${limit - 2} tries]`).toLowerCase();
+        guess = prompt(`Enter your guess!! [it's a word with ${lengthChoice} letters\nso you get ${attempts_left} tries]`).toLowerCase();
 
-        if (guess.length !== length) {
-            alert(`Enter a word with ${length} letters`);
+        if (guess.length !== lengthChoice) {
+            alert(`Enter a word with ${lengthChoice} letters`);
         }
         else if (!words.includes(guess)) {
-            alert(`"${guess}" is not a valid word`);// checks if guess is present as a word in dictionary attached
+            alert(`${guess}" is not a valid word`);// checks if guess is present as a word in dictionary attached
         }
         else {
             break;
         }
 
     } while (true);
+
+    return guess;
 }
 
 // function to compare the guess and secretWord
 
 function compare(guess, secretWord) {
-    let i = 0, j = 0, correctCounter = 0;
+    let correctCounter = 0;
     let arr = [];
     let index = [];
+    let i = 0, j = 0;
 
     for (i; i < secretWord.length; i++) {
-        if (guess.includes(secretWord[i])) {
+        if(guess == secretWord){
+           console.log("you won");
+           return true;
+        }
+        else if (guess.includes(secretWord[i])) {
             arr[j] = secretWord[i]; //stores the letter matched 
             index[j] = i; //stores the index of correct letter
             correctCounter++; //count how many letters matched
             j++;
         }
     }
-
-
+    
     console.log(`you got ${correctCounter} letters which are ${arr}\n`);
 
+
+    return false;
 }
 
 //function to start the game and decide the rounds to be played
 
-async function startGame() {
-    const secretWord = await getRandomWord();
-    let i = 0;
-    let limit = secretWord.length;
-    for (i; i < limit; i++) {
-        const user_input = getGuess(limit,secretWord.length);
-        compare(user_input, secretWord);
-        limit--;
-    }
+function startGame() {
 
+    let lengthChoice = Number(prompt("Choose the number of letters"));
+
+    const secretWord = getRandomWord(lengthChoice);
+
+    let initial_attempts = 6;
+
+    let attempts_left = initial_attempts - 2;
+
+    let check =false;
+
+    for (let i = 0; i < initial_attempts-2; i++) {
+        const user_input = getGuess(lengthChoice , attempts_left , words);
+        check = compare(user_input, secretWord);
+        attempts_left--;
+
+        if (check){
+            console.log(`the secret word was ${secretWord}`);
+            break;
+        }
+
+
+    }
 }
 
 startGame();
