@@ -15,5 +15,16 @@ function getRandomWord() {
     return secretWord;
 }
 
+// function to take guess
+
+function getGuess(limit) {
+
+    let guess = prompt(`Enter you guess !! [its a word with more than ${limit} letters\n so you get ${limit - 1} tries]\n`);
+
+    return guess.toLowerCase();
+
+}
+
+
 
 
