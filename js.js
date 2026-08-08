@@ -25,6 +25,25 @@ function getGuess(limit) {
 
 }
 
+// function to compare the guess and secretWord
+
+function compare(guess, secretword) {
+    let i = 0, j = 0, correctCounter = 0;
+    let arr = [];
+
+    for (i; i < secretWord.length(); i++) {
+        for (j; j < secretWord.length(); i++) {
+            if(secretWord[i]==guess[j]){
+                arr=secretWord[i];
+                correctCounter++;
+            }
+        }
+    }
+
+    console.log(`you got ${correctCounter} letters which are ${arr}`);
+
+}
+
 
 
 
