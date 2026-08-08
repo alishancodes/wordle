@@ -10,7 +10,7 @@ trying to make the wordle game
 
 3. Repeat until 6 attempts are used:
    - Get user's guess
-   - Check that guess is 5 letters
+   - Check that guess is how many letters
    - Compare guess with secret word
    - Give feedback for each letter
    - If guess equals secret word:
