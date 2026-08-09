@@ -1,4 +1,4 @@
-# fakeWordle
+# Wordle
 
 trying to make the wordle game
 
