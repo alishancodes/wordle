@@ -22,10 +22,17 @@ function getRandomWord(lengthChoice) {
 
 function getGuess(lengthChoice,attempts_left,words) {
 
-    let guess;
+    let guess,input;
 
     do {
-        guess = prompt(`Enter your guess!! [it's a word with ${lengthChoice} letters\nso you get ${attempts_left} tries]`).toLowerCase();
+        input = prompt(`Enter your guess!! [it's a word with ${lengthChoice} letters\nso you get ${attempts_left} tries]`);
+        //case to manage null input
+        if(input === null){
+            prompt("Try again with a valid input. Refresh to restart")
+            break;
+        }
+        
+        guess = input.toLowerCase();
 
         if (guess.length !== lengthChoice) {
             alert(`Enter a word with ${lengthChoice} letters`);
@@ -85,7 +92,7 @@ function startGame() {
 
     for (let i = 0; i < initial_attempts-2; i++) {
         const user_input = getGuess(lengthChoice , attempts_left , words);
-        check = compare(user_input, secretWord);
+        check = compare(user_input, secretWord);//it returns the boolean value of compare function ,used to stop when correct by user
         attempts_left--;
 
         if (check){
