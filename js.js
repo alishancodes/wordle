@@ -128,12 +128,15 @@ function positions(userInput, secretWord, lengthChoice) {
     let lettersMatched = pos.map(i => secretWord[i]);
 
     if (lettersMatched.length === 0) {
-        console.log(`you didnt get correct position of any letter`)
+        console.log(`you didnt get correct position of any letter`);
+        console.log("----------------------------");
     } 
     else {
         /* map() loops through each index in pos, uses that index to access the matching letter in secretWord,
           and returns an array of those letters */
         console.log(`The letters at positions ${(pos.map(i => i + 1))} match the letters at those positions in the secret word: ${lettersMatched}`);
+        console.log("----------------------------");
+
     }
 }
 
